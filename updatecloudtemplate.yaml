@@ -9,23 +9,28 @@ Resources:
       BucketName: "assignment2-kerem-nana-photos"
     DeletionPolicy: "Retain"  
 
-  # BucketPolicy:
-  #   Type: AWS::S3::BucketPolicy
-  #   Properties: 
-  #     Bucket: "photo-album-demo"
-  #     PolicyDocument: {
-  #       "Version": "2012-10-17",
-  #       "Id": "MyPolicy",
-  #       "Statement": [
-  #         {
-  #           "Sid": "PublicReadForGetBucketObjects",
-  #           "Effect": "Allow",
-  #           "Principal": "*",
-  #           "Action": "s3:GetObject",
-  #           "Resource": "arn:aws:s3:::photo-album-demo/*"
-  #         }
-  #       ]
-  #     }
+  BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties: 
+      Bucket: "photo-album-demo"
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Id": "MyPolicy",
+        "Statement": [
+          {
+           "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::assignment2-kerem-nana-photos/*"
+          },
+          {
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::assignment2-kerem-nana-photos/*"
+          }
+        ]
+      }
 
   LF1:
     Type: 'AWS::Serverless::Function'
