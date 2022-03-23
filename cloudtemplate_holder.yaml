@@ -65,3 +65,31 @@ Resources:
       Environment:
         Variables:
           Region: us-east-1
+
+  OpenSearchAlbum:
+    Type: AWS::OpenSearchService::Domain
+    Properties: 
+      AccessPolicies: {
+                        "Version": "2012-10-17",
+                        "Statement": [
+                          {
+                            "Effect": "Allow",
+                            "Principal": {
+                              "AWS": "*"
+                            },
+                            "Action": "es:*",
+                            "Resource": "arn:aws:es:us-east-1:395718007070:domain/photos/*"
+                          }
+                        ]
+                      }
+      DomainName: "photos"
+      ClusterConfig:
+        DedicatedMasterEnabled: "false"
+        InstanceCount: "1"
+        ZoneAwarenessEnabled: "false"
+        InstanceType: "t3.small.search"
+      EBSOptions:
+        EBSEnabled: true
+        Iops: 0
+        VolumeSize: 10
+        VolumeType: "gp2"
