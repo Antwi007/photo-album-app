@@ -37,14 +37,14 @@ Resources:
       MemorySize: 128
       Timeout: 15
       Role: 'arn:aws:iam::395718007070:role/service-role/rekognition'
-      # Events:
-      #   BucketEvent1:
-      #     Type: S3
-      #     Properties:
-      #       Bucket:
-      #         Ref: PhotoAlbumS3B2
-      #       Events:
-      #         - 's3:ObjectCreated:Put'
+      Events:
+        BucketEvent1:
+          Type: S3
+          Properties:
+            Bucket:
+              Ref: PhotoAlbumS3B2
+            Events:
+              - 's3:ObjectCreated:Put'
 
   LF2:
     Type: 'AWS::Serverless::Function'
