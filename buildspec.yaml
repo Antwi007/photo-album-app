@@ -2,7 +2,7 @@ version: 0.1
 phases:
   install:
     commands:
-      - aws cloudformation package --template-file updatecloudtemplate.yaml --s3-bucket photo-album-demo --output-template-file outputsamtemplate.yaml
+      - aws cloudformation package --template-file updatecloudtemplate.yaml --s3-bucket photo-album-lambdas --output-template-file outputsamtemplate.yaml
 artifacts:
   type: zip
   files:
