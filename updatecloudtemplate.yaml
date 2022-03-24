@@ -63,3 +63,40 @@ Resources:
       Description: AI Photo Album App API
       Name: TestAPI2
       CloneFrom: q9fue4di88
+  OpenSearchAlbumOS1:
+    Type: 'AWS::OpenSearchService::Domain'
+    DeletionPolicy: Retain
+    Properties:
+      AccessPolicies:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: '*'
+            Action:
+              - 'es:*'
+            Resource: 'arn:aws:es:us-east-1:395718007070:domain/photos2/*'
+      NodeToNodeEncryptionOptions:
+        Enabled: true
+      DomainEndpointOptions:
+        EnforceHTTPS: true
+      AdvancedSecurityOptions:
+        Enabled: true
+        InternalUserDatabaseEnabled: true
+        MasterUserOptions:
+          MasterUserName: KeremNana
+          MasterUserPassword: KeremNana1!
+      EncryptionAtRestOptions:
+        Enabled: true
+        KmsKeyId: >-
+          arn:aws:kms:us-east-1:395718007070:key/79cb5455-3856-4910-aaf9-855a231c5458
+      DomainName: photos2
+      ClusterConfig:
+        DedicatedMasterEnabled: false
+        InstanceCount: 1
+        InstanceType: t3.small.search
+      EBSOptions:
+        EBSEnabled: true
+        Iops: 0
+        VolumeSize: 10
+        VolumeType: gp2
