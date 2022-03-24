@@ -12,7 +12,7 @@ Resources:
   BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties: 
-      Bucket: "photo-album-demo"
+      Bucket: "assignment2-kerem-nana-photos"
       PolicyDocument: {
         "Version": "2012-10-17",
         "Id": "MyPolicy",
