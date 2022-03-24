@@ -10,7 +10,7 @@ service = 'es'
 credentials = boto3.Session().get_credentials()
 auth = ('KeremNana', 'KeremNana1!')
 
-host = 'https://search-photos-6hcrqwyptuxytg6vk2kalgxnny.us-east-1.es.amazonaws.com' # the OpenSearch Service domain, including https://
+host = 'https://search-photos2-uwqdo7dpete37eq6ebvw5p3hx4.us-east-1.es.amazonaws.com' # the OpenSearch Service domain, including https://
 index = 'photos'
 url = host + '/' + index + '/_search'
 
@@ -24,6 +24,7 @@ def lambda_handler(event, context):
     user_message = event['queryStringParameters']['user_message']
     # user_message = "I want to see dog"
     # print("user message", user_message)
+    print("changed")
     
     #http response object
     responseObject = {}

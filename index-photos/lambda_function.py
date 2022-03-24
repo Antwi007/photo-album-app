@@ -12,8 +12,9 @@ def lambda_handler(event, context):
     try:
         # Get bucket name and photo from S3 event trigger
         bucket = event['Records'][0]['s3']['bucket']['name']
+        # bucket = "assignment2-kerem-nana-photos"
         photo = urllib.parse.unquote_plus(event['Records'][0]['s3']['object']['key'], encoding='utf-8')
-        # photo = "dog.jpeg"
+        # photo = "dogFINAL.jpeg"
         
         # Get labels of photo from Rekognition
         response = client.detect_labels(Image={'S3Object':{'Bucket':bucket,'Name':photo}},
@@ -31,7 +32,7 @@ def lambda_handler(event, context):
         credentials = boto3.Session().get_credentials()
         auth = ('KeremNana', 'KeremNana1!')
         
-        host = 'https://search-photos-6hcrqwyptuxytg6vk2kalgxnny.us-east-1.es.amazonaws.com' # the OpenSearch Service domain, including https://
+        host = 'https://search-photos2-uwqdo7dpete37eq6ebvw5p3hx4.us-east-1.es.amazonaws.com' # the OpenSearch Service domain, including https://
         index = 'photos'
         url = host + '/' + index + '/_create/'
     
