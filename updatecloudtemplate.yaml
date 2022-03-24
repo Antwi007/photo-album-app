@@ -56,3 +56,10 @@ Resources:
       Environment:
         Variables:
           Region: us-east-1
+  OpenAPI:
+    Type: 'AWS::ApiGateway::RestApi'
+    DeletionPolicy: Retain
+    Properties:
+      Description: AI Photo Album App API
+      Name: TestAPI2
+      CloneFrom: q9fue4di88
