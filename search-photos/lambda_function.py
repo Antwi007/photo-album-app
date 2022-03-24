@@ -24,7 +24,6 @@ def lambda_handler(event, context):
     user_message = event['queryStringParameters']['user_message']
     # user_message = "I want to see dog"
     # print("user message", user_message)
-    print("changed")
     
     #http response object
     responseObject = {}
