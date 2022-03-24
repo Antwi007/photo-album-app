@@ -29,7 +29,7 @@ Resources:
       FunctionName: index-photos
       Handler: lambda_function.lambda_handler
       Runtime: python3.9
-      CodeUri: s3://photo-album-lambdas/732ea0a196dfd722ff51f1a25d14f486
+      CodeUri: ./index-photos
       Description: ''
       MemorySize: 128
       Timeout: 15
@@ -48,7 +48,7 @@ Resources:
       FunctionName: search-photos
       Handler: lambda_function.lambda_handler
       Runtime: python3.8
-      CodeUri: s3://photo-album-lambdas/c3b6b4cf8d1ca9591ab543032523df0a
+      CodeUri: ./search-photos
       Description: Function for searching for indexed photos
       MemorySize: 128
       Timeout: 15
