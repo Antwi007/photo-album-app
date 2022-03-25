@@ -22,7 +22,7 @@ def lambda_handler(event, context):
     user_id = '3957-1800-7070'
     
     user_message = event['queryStringParameters']['user_message']
-    # user_message = "I want to see dog"
+    # user_message = "show me photos of dog"
     # print("user message", user_message)
     
     #http response object
@@ -54,30 +54,28 @@ def lambda_handler(event, context):
     # By default, treat the user request as coming from the America/New_York time zone.
     response = client.post_text(
         botName='ScottsBot',
-        botAlias='one',
+        botAlias='last',
         userId=user_id,
         inputText=user_message,
     )
     
     try:
-        queries = response['slots']['query']
+        queries = response['slots']
     except:
-        responseObject['body']= json.dumps(
-        {
-            "type": "unstructured",
-            "unstructured": {
-            "id": "string",
-            "text": "Couldn't find " + str(response),
-            "tried": user_message,
-            "timestamp": "string"
-            }
-        })
-        return responseObject
-    
+        return response
+        
+    queryOne = queries["queryOne"]
+    queryTwo = None
+    print(queryOne, queryTwo)
+    try:
+        queryTwo = queries["queryTwo"]
+    except:
+        pass
+        
     query =  {
         "query": {
           "match": {
-            "labels": queries
+            "labels": queryOne
           }
         }
     }
@@ -89,14 +87,35 @@ def lambda_handler(event, context):
     response = requests.get(url, auth=auth, headers=headers, data=json.dumps(query)).json()
     
     # print("res", response)
-    res = response['hits']['hits']
+    photos = []
+    try:
+        res = response['hits']['hits']
+        photos = res
+    except:
+        pass
+    
+    query =  {
+        "query": {
+          "match": {
+            "labels": queryTwo
+          }
+        }
+    }
+    
+    response = requests.get(url, auth=auth, headers=headers, data=json.dumps(query)).json()
+    
+    try:
+        res = response['hits']['hits']
+        photos += res
+    except:
+        pass
     
     responseObject['body']= json.dumps(
         {
           "type": "unstructured",
           "unstructured": {
             "id": "string",
-            "photos": res,
+            "photos": photos,
             "timestamp": "string"
           }
         }
