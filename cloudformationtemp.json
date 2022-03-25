@@ -49,12 +49,21 @@
           }
         }
       },
+      "OpenAPI": {
+        "Type": "AWS::ApiGateway::RestApi",
+        "DeletionPolicy": "Retain",
+        "Properties": {
+          "Description": "AI Photo Album App API",
+          "Name": "TestAPI2",
+          "CloneFrom": "q9fue4di88"
+        }
+      },
       "LF1": {
         "Type": "AWS::Lambda::Function",
         "Properties": {
           "Code": {
             "S3Bucket": "photo-album-lambdas",
-            "S3Key": "522dd4fa2b65ee445eeeaeb11bff4a54"
+            "S3Key": "3042d6bb2c6607be5ed0472d2fcf40bd"
           },
           "Description": "",
           "FunctionName": "index-photos",
@@ -89,7 +98,7 @@
         "Properties": {
           "Code": {
             "S3Bucket": "photo-album-lambdas",
-            "S3Key": "2dbd9bf5f71d69d8144053a8fd70c16e"
+            "S3Key": "369ed7bc30a9ec6ddc15544a64d998c6"
           },
           "Description": "Function for searching for indexed photos",
           "FunctionName": "search-photos",
@@ -109,15 +118,6 @@
               "Value": "SAM"
             }
           ]
-        }
-      },
-      "OpenAPI": {
-        "Type": "AWS::ApiGateway::RestApi",
-        "DeletionPolicy": "Retain",
-        "Properties": {
-            "Description": "This is a description",
-            "Name": "TestAPI2",
-            "CloneFrom": "q9fue4di88"
         }
       },
       "OpenSearchAlbumOS1": {
@@ -170,6 +170,7 @@
                 "VolumeType": "gp2"
             }
         }
-     }
+      }
     }
   }
+  
