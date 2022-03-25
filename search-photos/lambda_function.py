@@ -54,7 +54,7 @@ def lambda_handler(event, context):
     # By default, treat the user request as coming from the America/New_York time zone.
     response = client.post_text(
         botName='ScottsBot',
-        botAlias='last',
+        botAlias='one',
         userId=user_id,
         inputText=user_message,
     )
