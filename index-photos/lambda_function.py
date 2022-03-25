@@ -27,7 +27,7 @@ def lambda_handler(event, context):
         for label in response['Labels']:
             labels.append(label['Name'])
 
-        # Put object in Elastic Search
+        # Put object in Elastic Search Service
 
         region = 'us-east-1'
         service = 'es'
