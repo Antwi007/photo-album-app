@@ -2,6 +2,7 @@ import json
 import boto3
 import requests
 from requests_aws4auth import AWS4Auth
+import botocore
 
 client = boto3.client('lex-runtime')
 
@@ -15,14 +16,10 @@ index = 'photos'
 url = host + '/' + index + '/_search'
 
 def lambda_handler(event, context):
-    """
-    Route the incoming request based on intent.
-    The JSON body of the request is provided in the event slot.
-    """
     user_id = '3957-1800-7070'
     
     user_message = event['queryStringParameters']['user_message']
-    # user_message = "show me photos of dog"
+    # user_message = "i want to see \"Kerem\""
     # print("user message", user_message)
     
     #http response object
