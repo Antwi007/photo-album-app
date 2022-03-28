@@ -15,6 +15,8 @@ host = 'https://search-photos2-uwqdo7dpete37eq6ebvw5p3hx4.us-east-1.es.amazonaws
 index = 'photos'
 url = host + '/' + index + '/_search'
 
+# print("hi")
+
 def lambda_handler(event, context):
     user_id = '3957-1800-7070'
     
