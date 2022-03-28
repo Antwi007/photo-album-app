@@ -24,13 +24,8 @@ def lambda_handler(event, context):
         try:
             object = s3.Object(bucket,photo)
             labels = object.metadata['customlabels'].split(",")
-        except botocore.exceptions.ClientError as e:
+        except Exception as e:
             labels = []
-            if e.response['Error']['Code'] == "404":
-                print("The object does not exist.")
-            else:
-                raise
-        
         
         s3 = boto3.client('s3')
         response = client.detect_labels(Image={'S3Object': {'Bucket': bucket, 'Name': photo}},
