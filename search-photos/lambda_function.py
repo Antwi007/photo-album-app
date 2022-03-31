@@ -2,6 +2,7 @@ import json
 import boto3
 import requests
 from requests_aws4auth import AWS4Auth
+import botocore
 
 client = boto3.client('lex-runtime')
 
@@ -14,15 +15,14 @@ host = 'https://search-photos2-uwqdo7dpete37eq6ebvw5p3hx4.us-east-1.es.amazonaws
 index = 'photos'
 url = host + '/' + index + '/_search'
 
+# print("hi")
+# comment
+
 def lambda_handler(event, context):
-    """
-    Route the incoming request based on intent.
-    The JSON body of the request is provided in the event slot.
-    """
     user_id = '3957-1800-7070'
     
     user_message = event['queryStringParameters']['user_message']
-    # user_message = "I want to see dog"
+    # user_message = "i want to see \"Kerem\""
     # print("user message", user_message)
     
     #http response object
@@ -60,24 +60,22 @@ def lambda_handler(event, context):
     )
     
     try:
-        queries = response['slots']['query']
+        queries = response['slots']
     except:
-        responseObject['body']= json.dumps(
-        {
-            "type": "unstructured",
-            "unstructured": {
-            "id": "string",
-            "text": "Couldn't find " + str(response),
-            "tried": user_message,
-            "timestamp": "string"
-            }
-        })
-        return responseObject
-    
+        return response
+        
+    queryOne = queries["queryOne"]
+    queryTwo = None
+    print(queryOne, queryTwo)
+    try:
+        queryTwo = queries["queryTwo"]
+    except:
+        pass
+        
     query =  {
         "query": {
           "match": {
-            "labels": queries
+            "labels": queryOne
           }
         }
     }
@@ -89,14 +87,35 @@ def lambda_handler(event, context):
     response = requests.get(url, auth=auth, headers=headers, data=json.dumps(query)).json()
     
     # print("res", response)
-    res = response['hits']['hits']
+    photos = []
+    try:
+        res = response['hits']['hits']
+        photos = res
+    except:
+        pass
+    
+    query =  {
+        "query": {
+          "match": {
+            "labels": queryTwo
+          }
+        }
+    }
+    
+    response = requests.get(url, auth=auth, headers=headers, data=json.dumps(query)).json()
+    
+    try:
+        res = response['hits']['hits']
+        photos += res
+    except:
+        pass
     
     responseObject['body']= json.dumps(
         {
           "type": "unstructured",
           "unstructured": {
             "id": "string",
-            "photos": res,
+            "photos": photos,
             "timestamp": "string"
           }
         }

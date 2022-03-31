@@ -5,7 +5,6 @@ from datetime import datetime
 import requests
 from requests_aws4auth import AWS4Auth
 
-s3 = boto3.client('s3')
 client = boto3.client('rekognition')
 
 
@@ -16,13 +15,21 @@ def lambda_handler(event, context):
         # bucket = "assignment2-kerem-nana-photos"
         photo = urllib.parse.unquote_plus(
             event['Records'][0]['s3']['object']['key'], encoding='utf-8')
-        # photo = "dogFINAL.jpeg"
+        # photo = 'a2.jpeg'
         # comment to test codePipeline
         # Get labels of photo from Rekognition
+    
+        s3 = boto3.resource('s3')
+    
+        try:
+            object = s3.Object(bucket,photo)
+            labels = object.metadata['customlabels'].split(",")
+        except Exception as e:
+            labels = []
+        
+        s3 = boto3.client('s3')
         response = client.detect_labels(Image={'S3Object': {'Bucket': bucket, 'Name': photo}},
                                         MaxLabels=10)
-
-        labels = []
 
         for label in response['Labels']:
             labels.append(label['Name'])
