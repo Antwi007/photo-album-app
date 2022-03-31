@@ -5,4 +5,4 @@ This repo implements the backend of a web photo album application, that can be s
 ![](nlp_project.png)
 
 Included in the repo is a CI/CD pipeline that automatically deploys the lambda functions and updates application stack through
-cloudformation.
+AWS cloudformation.
